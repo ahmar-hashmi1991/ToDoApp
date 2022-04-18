@@ -1,6 +1,6 @@
 <template>
   <div v-bind:show="todos.length>0" class="col align-self-center">
-    <div class="form-row align-items-center" v-for="todo in todos" :key="todo.id">
+    <div class="form-row align-items-center" v-for="todo in todos" :key="todo._id">
       <div class="col-auto my-1">
         <div class="input-group mb-3 todo__row">
           <div class="input-group-prepend">
@@ -39,8 +39,8 @@
     </div>
     <div
       class="alert alert-primary todo__row"
-      v-show="todos.length==0 && doneLoading"
-    >Hardest worker in the room. No more todos now you can rest. ;)</div>
+      v-show="todos.length==0"
+    >No pending tasks for the day.</div>
   </div>
 </template>
 
@@ -52,21 +52,11 @@ export default {
   data() {
     return {
       todos: [],
-      doneLoading: false
     };
   },
   created: function() {
     this.fetchTodo();
     this.listenToEvents();
-  },
-  watch: {
-    $route: function() {
-      let self = this;
-      self.doneLoading = false;
-      self.fetchTodo().then(function() {
-        self.doneLoading = true;
-      });
-    }
   },
   methods: {
     fetchTodo() {
@@ -85,6 +75,7 @@ export default {
         .catch(error => {
           console.log(error);
         });
+      document.activeElement.blur();
     },
 
     deleteTodo(id) {

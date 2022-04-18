@@ -1,4 +1,4 @@
-# frontend
+# todo-app
 
 ## Project setup
 ```
