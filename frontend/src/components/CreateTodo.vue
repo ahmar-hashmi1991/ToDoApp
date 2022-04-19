@@ -1,6 +1,6 @@
 <template>
   <div class="col align-self-center">
-    <h3 class="pb-5 text-left underline">Create todos</h3>
+    <h3 class="pb-5 text-left underline">My ToDo App</h3>
     <form class="sign-in" @submit.prevent>
       <div class="form-group todo__row">
         <input
