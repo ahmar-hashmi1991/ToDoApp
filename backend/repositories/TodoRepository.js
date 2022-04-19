@@ -9,10 +9,22 @@ class TodoRepository {
   }
 
   // create a new todo
-  create(name) {
-    const newTodo = { name, done: false };
+  createTodo(name) {
+    const newTodo = { name, subTodos: [] };
     const todo = new this.model(newTodo);
 
+    return todo.save();
+  }
+
+  // create a subtask
+
+  async createSubTodo(todoId, subTodoName)
+  {
+    const todo = await this.model.findById(todoId).exec();
+    const newTodo = { name: subTodoName, done : false };
+
+    todo.subTodos.push(newTodo);
+    
     return todo.save();
   }
 
@@ -27,15 +39,43 @@ class TodoRepository {
     return this.model.findById(id);
   }
 
+  //find subtodo by subtodoId
+  async findSubTodoById(todoId, subTodoId) {
+    const todo = await this.model.findById(todoId).exec();
+    todo.subTodos.find(subTodo => subTodo.id === subTodoId);
+
+    return todo.save();
+  }
+
     // delete todo
   deleteById(id) {
     return this.model.findByIdAndDelete(id);
   }
 
-  //update todo
-  updateById(id, object) {
-    const query = { _id: id };
-    return this.model.findOneAndUpdate(query, { $set: { name: object.name, done: object.done } });
+  async deleteSubTodoById(todoId, subTodoId) {
+    const todo = await this.model.findById(todoId).exec();
+    todo.subTodos.splice(todo.subTodos.findIndex(subTodo => subTodo.id === subTodoId), 1);
+
+    return todo.save();
+  };
+
+  // update todo name
+  updateTodoById(id, name) {
+    const todo = await this.model.findById(id).exec();
+    todo.name = name;
+
+    return todo.save();
+  }
+
+  //update subtodo name
+  async updateSubTodoById(todoId, subTodoId, object) {
+    const todo = await this.model.findById(todoId).exec();
+    const index = todo.subTodos.findIndex(subTodo => subTodo.id === subTodoId);
+
+    todo.subTodos[index].name = object.name;
+    todo.subTodos[index].done = object.done;
+    
+    return todo.save();
   }
 }
 

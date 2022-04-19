@@ -17,6 +17,7 @@ const app = express();
 mongoose.connect(config.DB, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
+  useFindAndModify: false,
 });
 
 app.use(cors());  //enable cors
