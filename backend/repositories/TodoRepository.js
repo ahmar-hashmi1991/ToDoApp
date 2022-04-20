@@ -42,9 +42,7 @@ class TodoRepository {
   //find subtodo by subtodoId
   async findSubTodoById(todoId, subTodoId) {
     const todo = await this.model.findById(todoId).exec();
-    todo.subTodos.find(subTodo => subTodo.id === subTodoId);
-
-    return todo.save();
+    return todo.subTodos.find(subTodo => subTodo.id === subTodoId);
   }
 
     // delete todo
@@ -60,7 +58,7 @@ class TodoRepository {
   };
 
   // update todo name
-  updateTodoById(id, name) {
+  async updateTodoById(id, name) {
     const todo = await this.model.findById(id).exec();
     todo.name = name;
 

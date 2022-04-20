@@ -66,8 +66,8 @@ app.delete('/:todoId/:subTodoId', (req, res) => {
 // update a todo item
 app.put('/:todoId', (req, res) => {
   const { todoId } = req.params;
-  const { todoName } = req.body.name;
-  repository.updateTodoById(todoId, todoName)
+  const { name } = req.body;
+  repository.updateTodoById(todoId, name)
     .then(res.status(200).json([]))
     .catch((error) => console.log(error));
 });

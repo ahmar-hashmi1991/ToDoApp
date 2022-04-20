@@ -4,9 +4,9 @@ const mongoose = require('mongoose');
 const todoSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: [true, 'A todo must have a name'],
-    unique: true,
-    trim: true
+    // required: [true, 'A todo must have a name'],
+    // unique: true,
+    // trim: true
   },
   subTodos: [{
     name: String,
