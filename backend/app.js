@@ -10,7 +10,8 @@ const cors = require('cors')
 
 const config = require('./config/Config');
 
-const routes = require('./routes/Routes');
+const projectRouter = require('./routes/projectRoutes');
+const taskRouter = require('./routes/taskRoutes');
 
 const app = express();
 
@@ -28,7 +29,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/todos', routes);
+app.use('/api/v1/projects', projectRouter);
+app.use('/api/v1/tasks', taskRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

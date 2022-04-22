@@ -6,7 +6,8 @@
     "author": "Ahmar Hashmi",
     "scripts": {
         "build": "webpack",
-        "start": "node app.js"
+        "debug": "ndb app.js",
+        "start": "nodemon app.js"
     },
     "dependencies": {
         "cookie-parser": "~1.4.4",
